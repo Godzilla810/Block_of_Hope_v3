@@ -10,7 +10,6 @@ public class BtnForEnd : MonoBehaviour
     public static BtnForEnd instance;
     void Awake() {
         if (instance != null){
-            Debug.LogError("More than one BtnManager in scene!");
             return;
         }
         instance = this;

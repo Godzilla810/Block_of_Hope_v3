@@ -11,7 +11,7 @@ public class Teleport : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.Find("player");
+        player = GameObject.Find("Player");
         if (player != null){
             currentMBPos = transform.position;
             currentPlayerPos = player.transform.position;

@@ -25,7 +25,7 @@ TagManager:
   - MirecleBlock
   - Wall
   - Floor
-  - 
+  - Boss
   - 
   - 
   - 
@@ -70,4 +70,7 @@ TagManager:
     locked: 0
   - name: floor
     uniqueID: 3853843395
+    locked: 0
+  - name: Boss
+    uniqueID: 2169237509
     locked: 0

@@ -7,24 +7,27 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     void Awake() {
         if (instance != null){
-            Debug.LogError("More than one PlayerController in scene!");
             return;
         }
         instance = this;
     }
+
     public GameObject MB;
     private Rigidbody2D MBRb;
+    public SpriteRenderer spriteRenderer;
+    public Color originalColor;
 
     public Transform shootPoint;
     public float shootForce = 10f;
     public float pullForce = 20f;
-    public float maxDistance = 5f;
 
     public bool isHold;
 
     void Start()
     {
         MBRb = MB.GetComponent<Rigidbody2D>();
+        spriteRenderer = MB.GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
     private void Update()
     {
@@ -43,14 +46,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        mouseScreenPosition.z = -Camera.main.transform.position.z;
-        return Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-    }
     private void ShootBlock(Vector3 direction)
     {
+        spriteRenderer.color = new Color(255, 255, 255, 1);
         MB.transform.SetParent(null); // 移除方塊的父物件
         MBRb.AddForce(direction * shootForce, ForceMode2D.Impulse);
         isHold = false;
@@ -60,9 +58,15 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 playerPosition = transform.position;
         Vector2 blockPosition = MB.transform.position;
-        Vector2 pullDirection = (playerPosition - blockPosition).normalized;
-        float distance = Vector2.Distance(playerPosition, blockPosition);
+        Vector2 pullDirection = (playerPosition - blockPosition);
         MBRb.AddForce(pullDirection * pullForce);
     }
 
+    //獲取滑鼠世界座標
+    private Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        mouseScreenPosition.z = -Camera.main.transform.position.z;
+        return Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+    }
 }

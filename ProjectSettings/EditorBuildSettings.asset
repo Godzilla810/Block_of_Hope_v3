@@ -6,24 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/00_CHI/Scenes/Menu.unity
+    path: Assets/CHI/Scenes/Menu.unity
     guid: a42f4b466cbfc4b17aa98d7bf4e41cc0
   - enabled: 1
-    path: Assets/00_CHI/Scenes/Story.unity
+    path: Assets/CHI/Scenes/Story.unity
     guid: 6c419de6e0daf4cd7871d932209329f6
   - enabled: 1
-    path: Assets/00_CHI/Scenes/How to Play.unity
+    path: Assets/CHI/Scenes/How to Play.unity
     guid: fdc01c43e22564af8ac3e69ac848ddf0
   - enabled: 1
     path: Assets/Scenes/OnlyOne.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/00_CHI/Scenes/End.unity
+    path: Assets/CHI/Scenes/End.unity
     guid: c481f1624e6834952863863c68a0d8be
   - enabled: 1
-    path: Assets/00_CHI/Scenes/Gameover.unity
+    path: Assets/CHI/Scenes/Gameover.unity
     guid: fa73b34b758e94fbdbfba07b5e5fbe35
   - enabled: 1
-    path: Assets/00_CHI/Scenes/Saikai.unity
+    path: Assets/CHI/Scenes/Saikai.unity
     guid: 78b9130d7704943339e315c2419864f2
   m_configObjects: {}
