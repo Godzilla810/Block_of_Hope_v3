@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
 
     public GameObject MB;
     private Rigidbody2D MBRb;
-    public SpriteRenderer spriteRenderer;
-    public Color originalColor;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    private Animator animator;
 
-    public Transform shootPoint;
     public float shootForce = 10f;
     public float pullForce = 20f;
+
+    private Vector3 currentPlayerPos;
 
     public bool isHold;
 
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
         MBRb = MB.GetComponent<Rigidbody2D>();
         spriteRenderer = MB.GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        animator = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -43,6 +46,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0) && !isHold)
         {
             PullBlock();
+        }
+
+        //瞬移
+        if (Input.GetMouseButtonDown(1)){
+            animator.SetTrigger("Teleport");
         }
     }
 
@@ -60,6 +68,11 @@ public class PlayerController : MonoBehaviour
         Vector2 blockPosition = MB.transform.position;
         Vector2 pullDirection = (playerPosition - blockPosition);
         MBRb.AddForce(pullDirection * pullForce);
+    }
+
+    public void Teleport(){
+        currentPlayerPos = MB.transform.position;
+        transform.position = currentPlayerPos;
     }
 
     //獲取滑鼠世界座標
