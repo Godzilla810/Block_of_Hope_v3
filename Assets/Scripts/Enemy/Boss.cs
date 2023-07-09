@@ -16,14 +16,13 @@ public class Boss : MonoBehaviour
     }
 
     private Animator animator;
+    private int hp;
     public int dmgCount;
     private int dieCount;
-    private Transform spawnPoint;
 
-    public Transform ru,rd,lu,ld;
+    public Transform[] spawnPoints;
     public GameObject enemyPrefab;     // Prefab of the enemy to be generated
-    private int hp;
-
+    
     private void Start()
     {
         hp = 5;
@@ -37,31 +36,39 @@ public class Boss : MonoBehaviour
         // Check for player input to switch between animator states
         if (Input.GetKeyDown(KeyCode.T))
         {
-            // Trigger the "Jump" animation state
             animator.SetTrigger("Talk");
         }
-        else if (Input.GetKeyDown(KeyCode.I))
+        else if (dmgCount == hp)
         {
-            animator.SetTrigger("Dmg");
-            GenerateNewEnemy();
-            StartCoroutine(DelayOnHit());
-        }
-        else if (Input.GetKeyDown(KeyCode.O)||dmgCount==hp)
-        {
-            animator.SetTrigger("Die");
-            dmgCount=0;
-            dieCount++;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.SetTrigger("Idle");
-        }
-        if(dieCount==4){
-            StartCoroutine(DestroyEnemyWithDelay());
+            Die();
         }
     } 
-
-    IEnumerator DestroyEnemyWithDelay()
+    public void Die(){
+        animator.SetTrigger("Die");
+        dmgCount=0;
+        dieCount++;
+        if(dieCount==4){
+            StartCoroutine(DestroyBossWithDelay());
+        }
+    }
+    public void GetDamage(){
+        animator.SetTrigger("Dmg");
+        GenerateNewEnemy();
+        BossMove();
+        StartCoroutine(DelayOnHit());
+    }
+    private void GenerateNewEnemy(){
+        int randomIndex = Random.Range(0, spawnPoints.Length);
+        Transform spawnPoint = spawnPoints[randomIndex];
+        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+    }
+    private void BossMove(){
+        int randomIndex = Random.Range(0, spawnPoints.Length);
+        Transform movePoint = spawnPoints[randomIndex];
+        transform.position = movePoint.position;
+    }
+    
+    IEnumerator DestroyBossWithDelay()
     {
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
@@ -70,10 +77,6 @@ public class Boss : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         dmgCount++;
-    }
-    private void GenerateNewEnemy(){
-        // Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
-        // Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
     }
 }
 

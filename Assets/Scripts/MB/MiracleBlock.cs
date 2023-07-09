@@ -52,8 +52,7 @@ public class MiracleBlock : MonoBehaviour
         //碰boss
         else if (collision.gameObject.layer == bossLayer)
         {
-            collision.gameObject.GetComponent<Animator>().SetTrigger("Dmg");
-            Boss.instance.dmgCount++;
+            Boss.instance.GetDamage();
         }
     }
 }

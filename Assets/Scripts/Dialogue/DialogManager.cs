@@ -36,14 +36,7 @@ public class DialogManager : MonoBehaviour
 
     public void DisplayNextSentence(){
         Debug.Log("Next");
-
-        // if (sentences.Count == 0){
-        //     EndDialog();
-        //     return;
-        // }
-        
         string word = sentences.Dequeue();
-        // describeText.text = word;
         StopAllCoroutines();
         StartCoroutine(TypeByWords(word));
     }
@@ -52,9 +45,9 @@ public class DialogManager : MonoBehaviour
         describeText.text = "";
         foreach (char letter in word.ToCharArray()){
             describeText.text += letter;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
         }
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
         EndDialog();
     }
 
